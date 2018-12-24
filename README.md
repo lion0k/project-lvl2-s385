@@ -22,6 +22,15 @@ Project 'Generate file difference' on Hexlet
 <img src="https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg"></a>-->
 <hr>
 
+<h4>
+Installation
+</h4>
+<p>
+1) <code>composer global require li0n0k/gendiff</code><br>
+2) Add in your PATH - <code>$HOME/.composer/vendor/bin</code><br>
+3) Run <code>gendiff -h</code> for help<br>
+</p>
+
   </body>
 </html>
 
