@@ -3,6 +3,7 @@
 namespace Gendiff\Differ;
 
 use function Gendiff\Parse\parseFile;
+use function Gendiff\Render\render;
 
 function getDataFromFile($pathToFile)
 {
@@ -26,7 +27,7 @@ function booleanToStr($item)
     }
 }
 
-function genDiff($pathToFile1, $pathToFile2)
+function genDiff($pathToFile1, $pathToFile2, $format = 'json')
 {
     $file1 = getDataFromFile($pathToFile1);
     $file2 = getDataFromFile($pathToFile2);
@@ -63,5 +64,5 @@ function genDiff($pathToFile1, $pathToFile2)
         return $acc;
     }, []);
 
-    return $result;
+    return render($result, $format);
 }

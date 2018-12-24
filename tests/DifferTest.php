@@ -25,7 +25,7 @@ class DifferTest extends TestCase
         );
 
         $this->assertEquals(
-            file_get_contents($this->result), json_encode(genDiff($this->jsonFile1, $this->jsonFile2))
+            file_get_contents($this->result), genDiff($this->jsonFile1, $this->jsonFile2)
         );
     }
 }

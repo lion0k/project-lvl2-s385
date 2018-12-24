@@ -2,13 +2,11 @@
 
 namespace Gendiff\Render;
 
-use function cli\line;
-
-function render(array $data)
+function render($data, $format)
 {
-    if (! empty($data)) {
-        foreach ($data as $item) {
-            line($item);
-        }
+    switch ($format) {
+        case 'json':
+            return json_encode($data);
+            break;
     }
 }
