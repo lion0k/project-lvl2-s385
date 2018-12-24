@@ -30,6 +30,12 @@ Installation
 2) Add in your PATH - <code>$HOME/.composer/vendor/bin</code><br>
 3) Run <code>gendiff -h</code> for help<br>
 </p>
+<hr>
+<h4>
+Example installation
+</h4>
+<a href="https://asciinema.org/a/qNQW6mVKZmso2wrAlRmwswG44" target="_blank">
+<img src="https://asciinema.org/a/qNQW6mVKZmso2wrAlRmwswG44.svg" /></a>
 
   </body>
 </html>
