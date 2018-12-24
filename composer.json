@@ -1,0 +1,35 @@
+{
+    "name": "li0n0k/gendiff",
+    "description": "cli-program analysis file diff",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexey Abramov",
+            "email": "li0n0km0nk@gmail.com"
+        }
+    ],
+    "bin": [
+        "bin/gendiff"
+    ],
+    "scripts": {
+        "phpcs": "phpcs",
+        "phpcbf": "phpcbf"
+    },
+    "autoload": {
+        "psr-4": {
+            "Gendiff\\": "src/"
+        },
+        "files": [
+
+        ]
+    },
+    "require": {
+        "docopt/docopt": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*",
+        "squizlabs/php_codesniffer": "*",
+        "codeclimate/php-test-reporter": "dev-master"
+    }
+}

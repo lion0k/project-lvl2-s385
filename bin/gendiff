@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+
+namespace Gendiff;
+
+require_once __DIR__ . '/../src/bootstrap.php';
+
+$doc = <<<DOCOPT
+
+Generate diff
+
+Usage:
+  gendiff (-h|--help)
+  gendiff [--format <fmt>] <firstFile> <secondFile>
+  
+Options:
+  -h --help                     Show this screen
+  --format <fmt>                Report format [default: pretty]
+
+DOCOPT;
+
+$result = \Docopt::handle($doc)->args;
+echo $result;
