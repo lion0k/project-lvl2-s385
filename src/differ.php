@@ -27,7 +27,7 @@ function booleanToStr($item)
     }
 }
 
-function genDiff($pathToFile1, $pathToFile2, $format = 'json')
+function genDiff($pathToFile1, $pathToFile2, $format = 'pretty')
 {
     $file1 = getDataFromFile($pathToFile1);
     $file2 = getDataFromFile($pathToFile2);
