@@ -5,6 +5,9 @@ namespace Gendiff;
 
 require_once __DIR__ . '/../src/bootstrap.php';
 
+use function Gendiff\Differ\genDiff;
+use function Gendiff\Render\render;
+
 $doc = <<<DOCOPT
 
 Generate diff
@@ -19,5 +22,5 @@ Options:
 
 DOCOPT;
 
-$result = \Docopt::handle($doc)->args;
-echo $result;
+$args = \Docopt::handle($doc)->args;
+render(genDiff($args['<firstFile>'], $args['<secondFile>']));

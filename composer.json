@@ -14,18 +14,23 @@
     ],
     "scripts": {
         "phpcs": "phpcs",
-        "phpcbf": "phpcbf"
+        "phpcbf": "phpcbf",
+        "phpunit": "phpunit",
+        "test": "phpunit tests"
     },
     "autoload": {
         "psr-4": {
             "Gendiff\\": "src/"
         },
         "files": [
-
+            "src/differ.php",
+            "src/parse.php",
+            "src/render.php"
         ]
     },
     "require": {
-        "docopt/docopt": "^1.0"
+        "docopt/docopt": "^1.0",
+        "wp-cli/php-cli-tools": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "*",
