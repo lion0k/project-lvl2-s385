@@ -25,12 +25,14 @@
         "files": [
             "src/differ.php",
             "src/parse.php",
-            "src/render.php"
+            "src/render.php",
+            "src/utils.php"
         ]
     },
     "require": {
         "docopt/docopt": "^1.0",
-        "wp-cli/php-cli-tools": "*"
+        "wp-cli/php-cli-tools": "*",
+        "symfony/yaml": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "*",

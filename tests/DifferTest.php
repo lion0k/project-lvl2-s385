@@ -7,25 +7,75 @@ use function \Gendiff\Differ\genDiff;
 
 class DifferTest extends TestCase
 {
-    public $jsonFile1 = __DIR__ . DIRECTORY_SEPARATOR . 'filesForTests' . DIRECTORY_SEPARATOR . 'before.json';
-    public $jsonFile2 = __DIR__ . DIRECTORY_SEPARATOR . 'filesForTests' . DIRECTORY_SEPARATOR . 'after.json';
-    public $result = __DIR__ . DIRECTORY_SEPARATOR . 'filesForTests' . DIRECTORY_SEPARATOR . 'resultJson';
-    public $fakePath = __DIR__ . DIRECTORY_SEPARATOR . 'filesForTests' . DIRECTORY_SEPARATOR . 'json';
-    public $errorJson = __DIR__ . DIRECTORY_SEPARATOR . 'filesForTests' . DIRECTORY_SEPARATOR . 'errorJson.json';
+    const RESULT = <<<DATA
+{
+    host: hexlet.io
+  + timeout: 20
+  - timeout: 50
+  - proxy: 123.234.53.22
+  + verbose: true
+}
 
-    public function testJson()
+DATA;
+
+    private function getPathForFixture($fixtureFileName)
     {
-        $this->assertEquals(
-            'One or both files not found', (genDiff($this->jsonFile1, $this->fakePath))
-        );
+        return __DIR__ . DIRECTORY_SEPARATOR . 'fixtures' . DIRECTORY_SEPARATOR . $fixtureFileName;
+    }
 
-        $this->assertEquals(
-            'One or both files undefined data structure or having errors'
-            , (genDiff($this->jsonFile1, $this->errorJson))
-        );
+    public function testNotFound()
+    {
+        try {
+            genDiff($this->getPathForFixture('file1.json')
+                  , $this->getPathForFixture('json'));
+            $this->fail('Expected exception');
+        } catch (\Exception $e) {}
+    }
 
-        $this->assertEquals(
-            file_get_contents($this->result), genDiff($this->jsonFile1, $this->jsonFile2)
-        );
+    public function testNotSupportExtension()
+    {
+        try {
+            genDiff($this->getPathForFixture('file1.json')
+                  , $this->getPathForFixture('errorExt.json2'));
+            $this->fail('Expected exception');
+        } catch (\Exception $e) {
+            $this->assertTrue(True);
+        }
+    }
+
+    public function testJsonErrorFileStructure()
+    {
+        try {
+            genDiff($this->getPathForFixture('file2.json')
+                  , $this->getPathForFixture('errorJson.json'));
+            $this->fail('Expected exception');
+        } catch (\Exception $e) {
+            $this->assertTrue(True);
+        }
+    }
+
+    public function testYamlErrorFileStructure()
+    {
+        try {
+            genDiff($this->getPathForFixture('file1.yaml')
+                  , $this->getPathForFixture('errorYaml.yaml'));
+            $this->fail('Expected exception');
+        } catch (\Exception $e) {
+            $this->assertTrue(True);
+        }
+    }
+
+    public function testDataJson()
+    {
+        $this->assertEquals(self::RESULT
+            , genDiff($this->getPathForFixture('file2.json')
+            , $this->getPathForFixture('file1.json')));
+    }
+
+    public function testDataYaml()
+    {
+        $this->assertEquals(self::RESULT
+            , genDiff($this->getPathForFixture('file2.yaml')
+                , $this->getPathForFixture('file1.yaml')));
     }
 }
