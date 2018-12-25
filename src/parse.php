@@ -20,7 +20,8 @@ function parseFile($data, $type)
             default:
                 throw new \Exception("Unsupported content type '{$type}'");
         }
-    } catch (\Exception $e) {}
+    } catch (\Exception $e) {
+    }
 }
 
 function parseJson($json)
