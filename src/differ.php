@@ -8,43 +8,54 @@ use function Gendiff\Utils\getDataFromFile;
 use function Gendiff\Utils\getExtension;
 use function Gendiff\Utils\booleanToStr;
 
-function setChangeInfo($typeInfo, $nameKey, $oldValue, $newValue)
+function buildDataStructure($typeInfo, $nameKey, $oldValue, $newValue, $child = null)
 {
     return ['typeInfo' => $typeInfo
     , 'nameKey' => $nameKey
     , 'oldValue' => booleanToStr($oldValue)
-    , 'newValue' => booleanToStr($newValue)];
+    , 'newValue' => booleanToStr($newValue)
+    , 'child' => $child];
 }
 
-function genDiff($pathToFile1, $pathToFile2, $format = 'pretty')
+function makeDiff($data1, $data2)
 {
-    try {
-        $file1 = getDataFromFile($pathToFile1);
-        $file2 = getDataFromFile($pathToFile2);
-
-        $dataFile1 = parseFile($file1, getExtension($pathToFile1));
-        $dataFile2 = parseFile($file2, getExtension($pathToFile2));
-    } catch (\Exception $e) {
-        return $e->getMessage() . PHP_EOL;
-    }
-
-    $arrUniqKeys = array_unique(array_merge(array_keys($dataFile1), array_keys($dataFile2)));
-    $result = array_reduce($arrUniqKeys, function ($acc, $key) use ($dataFile1, $dataFile2) {
-        if (array_key_exists($key, $dataFile1) && array_key_exists($key, $dataFile2)) {
-            if ($dataFile1[$key] == $dataFile2[$key]) {
-                $acc[] = setChangeInfo('unchange', $key, $dataFile1[$key], null);
+    $arrUniqKeys = array_unique(array_merge(array_keys($data1), array_keys($data2)));
+    $result = array_reduce($arrUniqKeys, function ($acc, $key) use ($data1, $data2) {
+        if (array_key_exists($key, $data1) && array_key_exists($key, $data2)) {
+            if (is_array($data1[$key]) && is_array($data2[$key])) {
+                $acc[] = buildDataStructure(
+                    'nested',
+                    $key,
+                    $data1[$key],
+                    null,
+                    makeDiff($data1[$key], $data2[$key])
+                );
+            } elseif (is_array($data1[$key]) || is_array($data2[$key])) {
+                $acc[] = buildDataStructure('unchanged', $key, $data1[$key], $data2[$key]);
             } else {
-                $acc[] = setChangeInfo('changed', $key, $dataFile1[$key], $dataFile2[$key]);
+                if ($data1[$key] == $data2[$key]) {
+                    $acc[] = buildDataStructure('unchanged', $key, $data1[$key], null);
+                } else {
+                    $acc[] = buildDataStructure('changed', $key, $data1[$key], $data2[$key]);
+                }
             }
         } else {
-            if (array_key_exists($key, $dataFile1)) {
-                $acc[] = setChangeInfo('removed', $key, $dataFile1[$key], null);
+            if (array_key_exists($key, $data1)) {
+                $acc[] = buildDataStructure('removed', $key, $data1[$key], null);
             } else {
-                $acc[] = setChangeInfo('added', $key, null, $dataFile2[$key]);
+                $acc[] = buildDataStructure('added', $key, null, $data2[$key]);
             }
         }
         return $acc;
     }, []);
 
-    return render($result, $format);
+    return $result;
+}
+
+function genDiff($pathToFile1, $pathToFile2, $format = 'pretty')
+{
+    $data1 = parseFile(getDataFromFile($pathToFile1), getExtension($pathToFile1));
+    $data2 = parseFile(getDataFromFile($pathToFile2), getExtension($pathToFile2));
+
+    return render(makeDiff($data1, $data2), $format);
 }
