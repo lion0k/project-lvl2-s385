@@ -28,7 +28,8 @@
             "src/render.php",
             "src/utils.php",
             "src/renderers/pretty.php",
-            "src/renderers/plain.php"
+            "src/renderers/plain.php",
+            "src/renderers/json.php"
         ]
     },
     "require": {

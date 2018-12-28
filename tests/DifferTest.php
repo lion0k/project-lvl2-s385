@@ -32,4 +32,11 @@ class DifferTest extends TestCase
             , genDiff($this->getPathForFixture('file1Ast.json')
                 , $this->getPathForFixture('file2Ast.json')));
     }
+
+    public function testDataFormatJson()
+    {
+        $this->assertEquals(file_get_contents($this->getPathForFixture('resultJson.json'))
+            , genDiff($this->getPathForFixture('file2.json')
+                , $this->getPathForFixture('file1.json'), 'json'));
+    }
 }
