@@ -26,6 +26,13 @@ class ExceptionTest extends TestCase
             , $this->getPathForFixture('errorExt.json2'));
     }
 
+    public function testUnsupportedFormat()
+    {
+        $this->expectException('Exception');
+        genDiff($this->getPathForFixture('file1.yaml')
+            , $this->getPathForFixture('errorYaml.yaml'), 'simple');
+    }
+
     public function testJsonErrorFileStructure()
     {
         $this->expectException('Exception');

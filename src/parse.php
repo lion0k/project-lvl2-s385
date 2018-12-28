@@ -9,11 +9,9 @@ function parseFile($data, $type)
     switch ($type) {
         case 'json':
             return parseJson($data);
-            break;
 
         case 'yaml':
             return parseYaml($data);
-            break;
 
         default:
             throw new \Exception("Unsupported content type '{$type}'");
@@ -23,7 +21,7 @@ function parseFile($data, $type)
 function parseJson($json)
 {
     $data = json_decode($json, true);
-    if (json_last_error() != JSON_ERROR_NONE) {
+    if (json_last_error() !== JSON_ERROR_NONE) {
         throw new \Exception("File having error data structure");
     }
     return $data;

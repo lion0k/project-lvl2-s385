@@ -26,12 +26,14 @@
             "src/differ.php",
             "src/parse.php",
             "src/render.php",
-            "src/utils.php"
+            "src/utils.php",
+            "src/renderers/pretty.php",
+            "src/renderers/plain.php"
         ]
     },
     "require": {
         "docopt/docopt": "^1.0",
-        "wp-cli/php-cli-tools": "*",
+        "funct/funct": "*",
         "symfony/yaml": "*"
     },
     "require-dev": {
