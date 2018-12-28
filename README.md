@@ -27,10 +27,10 @@ Installation
 </p>
 <hr>
 <h4>
-Example installation
+Example installation and use
 </h4>
-<a href="https://asciinema.org/a/qNQW6mVKZmso2wrAlRmwswG44" target="_blank">
-<img src="https://asciinema.org/a/qNQW6mVKZmso2wrAlRmwswG44.svg" /></a>
+<a href="https://asciinema.org/a/N1j1TjQDTSPUa4q9Oy5TrWqAB" target="_blank">
+<img src="https://asciinema.org/a/N1j1TjQDTSPUa4q9Oy5TrWqAB.svg" /></a>
 
   </body>
 </html>
