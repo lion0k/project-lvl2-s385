@@ -1,26 +1,25 @@
 <?php
 
-namespace Gendiff\Renderers;
+namespace Gendiff\Renderer;
 
 use function Funct\Collection\flattenAll;
 
-const SPACE_INFO = ['nested' => '    '
-    , 'unchanged' => '    '
-    , 'added' => '  + '
-    , 'removed' => '  - '
-    , 'specialEmpty' => '    '];
-
-const STEP_SPACE = 4;
+const SPACE_INFO = ['nested'       => '    ',
+                    'unchanged'    => '    ',
+                    'added'        => '  + ',
+                    'removed'      => '  - ',
+                    'specialEmpty' => '    '
+                    ];
 
 function renderPretty($data, $depth = 0)
 {
     $result = array_map(function ($node) use ($depth) {
 
-        ['typeInfo' => $typeInfo
-        , 'nameKey' => $nameKey
-        , 'oldValue' => $oldValue
-        , 'newValue' => $newValue
-        , 'child' => $child] = $node;
+        ['typeInfo' => $typeInfo,
+         'nameKey'  => $nameKey,
+         'oldValue' => $oldValue,
+         'newValue' => $newValue,
+         'children' => $children] = $node;
 
         switch ($typeInfo) {
             case 'unchanged':
@@ -41,7 +40,7 @@ function renderPretty($data, $depth = 0)
                 break;
 
             case 'nested':
-                return makeString($depth, 'specialEmpty', $nameKey, renderPretty($child, $depth + 1));
+                return makeString($depth, 'specialEmpty', $nameKey, renderPretty($children, $depth + 1));
                 break;
         }
     }, $data);
@@ -57,6 +56,10 @@ function makeString($depth, $spaceInfo, $name, $key)
 
 function buildStrings($data, $depth = 0)
 {
+    if (empty($data)) {
+        return $data;
+    }
+
     if (is_array($data)) {
         $keys = array_keys($data);
         $strArr = array_reduce($keys, function ($acc, $key) use ($data, $depth) {

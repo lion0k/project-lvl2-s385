@@ -3,7 +3,7 @@
 namespace Gendiff\Tests;
 
 use PHPUnit\Framework\TestCase;
-use function \Gendiff\Differ\genDiff;
+use function \Gendiff\differ\genDiff;
 
 class ExceptionTest extends TestCase
 {
@@ -15,35 +15,35 @@ class ExceptionTest extends TestCase
     public function testNotFound()
     {
         $this->expectException('Exception');
-        genDiff($this->getPathForFixture('file1.json')
-            , $this->getPathForFixture('jsonp'));
+        genDiff($this->getPathForFixture('file1.json'),
+                $this->getPathForFixture('jsonp'));
     }
 
     public function testNotSupportExtension()
     {
         $this->expectException('Exception');
-        genDiff($this->getPathForFixture('file1.json')
-            , $this->getPathForFixture('errorExt.json2'));
+        genDiff($this->getPathForFixture('file1.json'),
+                $this->getPathForFixture('errorExt.json2'));
     }
 
     public function testUnsupportedFormat()
     {
         $this->expectException('Exception');
-        genDiff($this->getPathForFixture('file1.yaml')
-            , $this->getPathForFixture('errorYaml.yaml'), 'simple');
+        genDiff($this->getPathForFixture('file1.yaml'),
+                $this->getPathForFixture('errorYaml.yaml'), 'simple');
     }
 
     public function testJsonErrorFileStructure()
     {
         $this->expectException('Exception');
-        genDiff($this->getPathForFixture('file2.json')
-            , $this->getPathForFixture('errorJson.json'));
+        genDiff($this->getPathForFixture('file2.json'),
+                $this->getPathForFixture('errorJson.json'));
     }
 
     public function testYamlErrorFileStructure()
     {
         $this->expectException('Exception');
-        genDiff($this->getPathForFixture('file1.yaml')
-            , $this->getPathForFixture('errorYaml.yaml'));
+        genDiff($this->getPathForFixture('file1.yaml'),
+                $this->getPathForFixture('errorYaml.yaml'));
     }
 }

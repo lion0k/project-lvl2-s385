@@ -3,7 +3,7 @@
 namespace Gendiff\Tests;
 
 use PHPUnit\Framework\TestCase;
-use function \Gendiff\Differ\genDiff;
+use function \Gendiff\differ\genDiff;
 
 class DifferTest extends TestCase
 {
@@ -14,29 +14,37 @@ class DifferTest extends TestCase
 
     public function testDataJsonSimple()
     {
-        $this->assertEquals(file_get_contents($this->getPathForFixture('result.json'))
-            , genDiff($this->getPathForFixture('file2.json')
-            , $this->getPathForFixture('file1.json')));
+        $expected = file_get_contents($this->getPathForFixture('result.json'));
+        $actual = genDiff($this->getPathForFixture('file2.json'),
+                          $this->getPathForFixture('file1.json'));
+
+        $this->assertEquals($expected, $actual);
     }
 
     public function testDataYamlSimple()
     {
-        $this->assertEquals(file_get_contents($this->getPathForFixture('result.json'))
-            , genDiff($this->getPathForFixture('file2.yaml')
-                , $this->getPathForFixture('file1.yaml')));
+        $expected = file_get_contents($this->getPathForFixture('result.json'));
+        $actual = genDiff($this->getPathForFixture('file2.yaml'),
+                          $this->getPathForFixture('file1.yaml'));
+
+        $this->assertEquals($expected, $actual);
     }
 
     public function testDataJsonAST()
     {
-        $this->assertEquals(file_get_contents($this->getPathForFixture('resultAst.json'))
-            , genDiff($this->getPathForFixture('file1Ast.json')
-                , $this->getPathForFixture('file2Ast.json')));
+        $expected = file_get_contents($this->getPathForFixture('resultAst.json'));
+        $actual = genDiff($this->getPathForFixture('file1Ast.json'),
+                          $this->getPathForFixture('file2Ast.json'));
+
+        $this->assertEquals($expected, $actual);
     }
 
     public function testDataFormatJson()
     {
-        $this->assertEquals(file_get_contents($this->getPathForFixture('resultJson.json'))
-            , genDiff($this->getPathForFixture('file2.json')
-                , $this->getPathForFixture('file1.json'), 'json'));
+        $expected = file_get_contents($this->getPathForFixture('resultJson.json'));
+        $actual = genDiff($this->getPathForFixture('file2.json'),
+                          $this->getPathForFixture('file1.json'), 'json');
+
+        $this->assertEquals($expected, $actual);
     }
 }

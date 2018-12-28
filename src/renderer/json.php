@@ -1,6 +1,6 @@
 <?php
 
-namespace Gendiff\Renderers;
+namespace Gendiff\Renderer;
 
 function renderJson($data)
 {

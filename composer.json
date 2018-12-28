@@ -27,9 +27,9 @@
             "src/parse.php",
             "src/render.php",
             "src/utils.php",
-            "src/renderers/pretty.php",
-            "src/renderers/plain.php",
-            "src/renderers/json.php"
+            "src/renderer/pretty.php",
+            "src/renderer/plain.php",
+            "src/renderer/json.php"
         ]
     },
     "require": {

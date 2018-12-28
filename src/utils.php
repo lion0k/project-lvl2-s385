@@ -1,6 +1,6 @@
 <?php
 
-namespace Gendiff\Utils;
+namespace Gendiff\utils;
 
 function getDataFromFile($pathToFile)
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Gendiff\Parse;
+namespace Gendiff\parse;
 
 use \Symfony\Component\Yaml\Yaml;
 
-function parseFile($data, $type)
+function parse($data, $type)
 {
     switch ($type) {
         case 'json':

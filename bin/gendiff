@@ -20,5 +20,12 @@ Options:
 DOCOPT;
 
 $args = \Docopt::handle($doc)->args;
-$diff = genDiff($args['<firstFile>'], $args['<secondFile>'], $args['--format']);
+
+try {
+    $diff = genDiff($args['<firstFile>'], $args['<secondFile>'], $args['--format']);
+} catch (\Exception $e) {
+    print_r($e->getMessage() . PHP_EOL);
+    exit;
+}
+
 print_r($diff);

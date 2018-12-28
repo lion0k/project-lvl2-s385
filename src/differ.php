@@ -1,20 +1,20 @@
 <?php
 
-namespace Gendiff\Differ;
+namespace Gendiff\differ;
 
-use function Gendiff\Parse\parseFile;
-use function Gendiff\Render\render;
-use function Gendiff\Utils\getDataFromFile;
-use function Gendiff\Utils\getExtension;
-use function Gendiff\Utils\booleanToStr;
+use function Gendiff\parse\parse;
+use function Gendiff\render\render;
+use function Gendiff\utils\getDataFromFile;
+use function Gendiff\utils\getExtension;
+use function Gendiff\utils\booleanToStr;
 
-function buildDataStructure($typeInfo, $nameKey, $oldValue, $newValue, $child = null)
+function buildDataStructure($typeInfo, $nameKey, $oldValue, $newValue, $children = null)
 {
-    return ['typeInfo' => $typeInfo
-    , 'nameKey' => $nameKey
-    , 'oldValue' => booleanToStr($oldValue)
-    , 'newValue' => booleanToStr($newValue)
-    , 'child' => $child];
+    return ['typeInfo' => $typeInfo,
+            'nameKey' => $nameKey,
+            'oldValue' => booleanToStr($oldValue),
+            'newValue' => booleanToStr($newValue),
+            'children' => $children];
 }
 
 function makeDiff($data1, $data2)
@@ -54,8 +54,8 @@ function makeDiff($data1, $data2)
 
 function genDiff($pathToFile1, $pathToFile2, $format = 'pretty')
 {
-    $data1 = parseFile(getDataFromFile($pathToFile1), getExtension($pathToFile1));
-    $data2 = parseFile(getDataFromFile($pathToFile2), getExtension($pathToFile2));
+    $data1 = parse(getDataFromFile($pathToFile1), getExtension($pathToFile1));
+    $data2 = parse(getDataFromFile($pathToFile2), getExtension($pathToFile2));
 
     return render(makeDiff($data1, $data2), $format);
 }

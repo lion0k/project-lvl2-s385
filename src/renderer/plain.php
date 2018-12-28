@@ -1,6 +1,6 @@
 <?php
 
-namespace Gendiff\Renderers;
+namespace Gendiff\Renderer;
 
 function buildMessages($data, $parents = []):array
 {
@@ -28,7 +28,7 @@ function buildMessages($data, $parents = []):array
                 break;
 
             case 'nested':
-                return array_merge($acc, buildMessages($node['child'], $parents));
+                return array_merge($acc, buildMessages($node['children'], $parents));
         }
         return $acc;
     }, []);

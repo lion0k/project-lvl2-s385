@@ -1,10 +1,10 @@
 <?php
 
-namespace Gendiff\Render;
+namespace Gendiff\render;
 
-use function Gendiff\Renderers\renderPretty;
-use function Gendiff\Renderers\renderPlain;
-use function Gendiff\Renderers\renderJson;
+use function Gendiff\Renderer\renderPretty;
+use function Gendiff\Renderer\renderPlain;
+use function Gendiff\Renderer\renderJson;
 
 function render($data, $format):string
 {
@@ -19,6 +19,6 @@ function render($data, $format):string
             return renderJson($data) . PHP_EOL;
 
         default:
-            throw new \Exception('Unsupported output format');
+            throw new \Exception("Unsupported output format '{$format}'");
     }
 }
